@@ -1,20 +1,7 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-
 var lib = require('bower-files')();
-// ({
-//   "overrides":{
-//     "bootstrap" : {
-//       "main": [
-//         "less/bootstrap.less",
-//         "dist/css/bootstrap.css",
-//         "dist/js/bootstrap.js"
-//       ]
-//     }
-//   }
-// });
-
 var utilities = require('gulp-util');
 var buildProduction = utilities.env.production;
 var del = require('del');
@@ -24,9 +11,7 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 
 
-
 ////////////////////// TYPESCRIPT //////////////////////
-
 
 gulp.task('tsClean', function(){
   return del(['app/*.js', 'app/*.js.map']);
@@ -37,7 +22,6 @@ gulp.task('ts', ['tsClean'], shell.task([
 ]));
 
 ////////////////////// BOWER //////////////////////
-
 
 gulp.task('jsBowerClean', function(){
   return del(['./build/js/vendor.min.js']);
@@ -73,7 +57,6 @@ gulp.task('sassBuild', function() {
 });
 
 ////////////////////// SERVER //////////////////////
-
 
 gulp.task('serve', ['build'], function() {
   browserSync.init({
