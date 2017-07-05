@@ -16,14 +16,6 @@ import { Component } from '@angular/core';
             <button (click)="editBeer(currentKeg)">Edit!</button></li>
         </ul>
         <hr>
-        <h3>Edit Beer</h3>
-        <label>Enter Beer Name:</label>
-        <input [(ngModel)]="selectedKeg.description"><br>
-        <label>Enter Beer Price:</label>
-        <input [(ngModel)]="selectedKeg.price"><br>
-        <label>Enter Alcohol Content:</label>
-        <input [(ngModel)]="selectedKeg.alcContent"><br>
-        <hr>
         <div>
           <h3>Add keg:</h3>
           <label>Enter Burr Name:</label>
@@ -34,6 +26,14 @@ import { Component } from '@angular/core';
           <input #newPintPrice><br>
           <button (click)="addKeg(newBeerName.value, newAlcoholContent.value, newPintPrice.value)">add a burr</button>
        </div>
+       <h3>Edit Beer</h3>
+       <label>Enter Beer Name:</label>
+       <input [(ngModel)]="selectedKeg.description"><br>
+       <label>Enter Beer Price:</label>
+       <input [(ngModel)]="selectedKeg.price"><br>
+       <label>Enter Alcohol Content:</label>
+       <input [(ngModel)]="selectedKeg.alcContent"><br>
+       <hr>
      </div>
   `
 })

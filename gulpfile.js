@@ -2,17 +2,18 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 
-var lib = require('bower-files')({
-  "overrides":{
-    "bootstrap" : {
-      "main": [
-        "less/bootstrap.less",
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js"
-      ]
-    }
-  }
-});
+var lib = require('bower-files')();
+// ({
+//   "overrides":{
+//     "bootstrap" : {
+//       "main": [
+//         "less/bootstrap.less",
+//         "dist/css/bootstrap.css",
+//         "dist/js/bootstrap.js"
+//       ]
+//     }
+//   }
+// });
 
 var utilities = require('gulp-util');
 var buildProduction = utilities.env.production;
@@ -21,6 +22,8 @@ var browserSync = require('browser-sync').create();
 var shell = require('gulp-shell');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
+
+
 
 ////////////////////// TYPESCRIPT //////////////////////
 
@@ -62,7 +65,7 @@ gulp.task('bower', ['jsBower', 'cssBower']);
 ////////////////////// SASS //////////////////////
 
 gulp.task('sassBuild', function() {
-  return gulp.src(['resources/styles/*'])
+  return gulp.src(['resources/styles/scss/*'])
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(sourcemaps.write())
@@ -81,7 +84,8 @@ gulp.task('serve', ['build'], function() {
   });
   gulp.watch(['resources/js/*.js'], ['jsBuild']); // vanilla js changes, reload.
   gulp.watch(['*.html'], ['htmlBuild']); // html changes, reload.
-  gulp.watch(['resources/styles/*.css', 'resources/styles/*.scss'], ['cssBuild']);      gulp.watch(['app/*.ts'], ['tsBuild']); // typescript files change, compile then reload.
+  gulp.watch(['resources/styles/*.css', 'resources/styles/*.scss'], ['cssBuild']);
+  gulp.watch(['app/*.ts'], ['tsBuild']); // typescript files change, compile then reload.
 });
 
 gulp.task('jsBuild', function(){
