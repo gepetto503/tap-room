@@ -11,36 +11,30 @@ var AppComponent = (function () {
     function AppComponent() {
         this.currentFocus = 'Deschutes Brewery Tap Room';
         this.kegs = [
-            new Keg('Black Butte Porter', 1, 5.2),
-            new Keg('Mirror Pond Pale Ale', 2, 6),
-            new Keg('Inversion IPA', 2, 7)
+            new Keg('Black Butte Porter', 1, 5.2, 124),
+            new Keg('Mirror Pond Pale Ale', 2, 6, 124),
+            new Keg('Inversion IPA', 2, 7, 124)
         ];
         this.selectedKeg = this.kegs[0];
-        //   isDone(clickedTask: Task) {
-        //    if(clickedTask.done === true) {
-        //      alert("This task is done!");
-        //    } else {
-        //      alert("This task is not done. Better get to work!");
-        //    }
-        //  }
     }
-    AppComponent.prototype.editTask = function (clickedTask) {
-        this.selectedKeg = clickedTask;
+    AppComponent.prototype.sellPint = function (clickedKeg) {
+        clickedKeg.pintsLeft -= 1;
     };
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'app-root',
-        template: "\n      <div class=\"container\">\n        <h1>{{currentFocus}}</h1>\n        <ul>\n          <li *ngFor=\"let currentKeg of kegs\">{{currentKeg.description}} has %{{currentKeg.alcContent}} alcohol content, and is {{currentKeg.price}} dollar(s)<button (click)=\"editTask(currentTask)\">Edit!</button></li>\n        </ul>\n        <hr>\n        <div>\n          <h3>{{selectedKeg.description}}</h3>\n          <h3>Edit Task</h3>\n          <label>Enter Task Description:</label>\n          <input [(ngModel)]=\"selectedKeg.description\">\n          <label>Enter Task Priority (1-3):</label>\n       </div>\n     </div>\n  "
+        template: "\n      <div class=\"container\">\n        <h1>{{currentFocus}}</h1>\n        <ul>\n          <li *ngFor=\"let currentKeg of kegs\">{{currentKeg.description}}\n            <ul>\n              <li>%{{currentKeg.alcContent}} alcohol content</li>\n              <li>{{currentKeg.price}} dollar(s)</li>\n              <li>there are {{currentKeg.pintsLeft}} pints left</li>\n            </ul>\n            <button (click)=\"sellPint(currentKeg)\">Sell the pint!</button></li>\n        </ul>\n        <hr>\n        <div>\n          <h3>Add keg:</h3>\n          <label>Enter Keg Name:</label>\n          <input [(ngModel)]=\"selectedKeg.description\"><br>\n          <label>Enter Alcohol Content:</label>\n          <input [(ngModel)]=\"selectedKeg.description\"><br>\n          <label>Enter Keg Price:</label>\n          <input [(ngModel)]=\"selectedKeg.description\"><br>\n       </div>\n     </div>\n  "
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
 var Keg = (function () {
-    function Keg(description, price, alcContent) {
+    function Keg(description, price, alcContent, pintsLeft) {
         this.description = description;
         this.price = price;
         this.alcContent = alcContent;
+        this.pintsLeft = pintsLeft;
         this.done = false;
     }
     return Keg;
