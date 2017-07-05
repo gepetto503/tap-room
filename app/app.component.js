@@ -11,21 +11,32 @@ var AppComponent = (function () {
     function AppComponent() {
         this.currentFocus = 'Deschutes Brewery Tap Room';
         this.kegs = [
-            new Keg('Black Butte Porter', 1, 5.2, 124),
+            new Keg('Black Butte Porter', 1, 5.2, 56),
             new Keg('Mirror Pond Pale Ale', 2, 6, 124),
-            new Keg('Inversion IPA', 2, 7, 124)
+            new Keg('Inversion IPA', 2, 7, 10)
         ];
         this.selectedKeg = this.kegs[0];
     }
     AppComponent.prototype.sellPint = function (clickedKeg) {
         clickedKeg.pintsLeft -= 1;
     };
+    AppComponent.prototype.fullnessColor = function (currentKeg) {
+        if (currentKeg.pintsLeft <= 10) {
+            return "bg-danger";
+        }
+        if (currentKeg.pintsLeft <= 55) {
+            return "bg-warning";
+        }
+        else {
+            return "bg-info";
+        }
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'app-root',
-        template: "\n      <div class=\"container\">\n        <h1>{{currentFocus}}</h1>\n        <ul>\n          <li *ngFor=\"let currentKeg of kegs\">{{currentKeg.description}}\n            <ul>\n              <li>%{{currentKeg.alcContent}} alcohol content</li>\n              <li>{{currentKeg.price}} dollar(s)</li>\n              <li>there are {{currentKeg.pintsLeft}} pints left</li>\n            </ul>\n            <button (click)=\"sellPint(currentKeg)\">Sell the pint!</button></li>\n        </ul>\n        <hr>\n        <div>\n          <h3>Add keg:</h3>\n          <label>Enter Keg Name:</label>\n          <input [(ngModel)]=\"selectedKeg.description\"><br>\n          <label>Enter Alcohol Content:</label>\n          <input [(ngModel)]=\"selectedKeg.description\"><br>\n          <label>Enter Keg Price:</label>\n          <input [(ngModel)]=\"selectedKeg.description\"><br>\n       </div>\n     </div>\n  "
+        template: "\n      <div class=\"container\">\n        <h1>{{currentFocus}}</h1>\n        <ul>\n          <li [class]=\"fullnessColor(currentKeg)\" *ngFor=\"let currentKeg of kegs\">{{currentKeg.description}}\n            <ul>\n              <li>%{{currentKeg.alcContent}} alcohol content</li>\n              <li>{{currentKeg.price}} dollar(s)</li>\n              <li>there are {{currentKeg.pintsLeft}} pints left</li>\n            </ul>\n            <button (click)=\"sellPint(currentKeg)\">Sell the pint!</button></li>\n        </ul>\n        <hr>\n        <div>\n          <h3>Add keg:</h3>\n          <label>Enter Burr Name:</label>\n          <input><br>\n          <label>Enter Alcohol Content:</label>\n          <input [(ngModel)]=\"selectedKeg.description\"><br>\n          <label>Enter Keg Price:</label>\n          <input [(ngModel)]=\"selectedKeg.description\"><br>\n          <button>add a burr</button>\n       </div>\n     </div>\n  "
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
