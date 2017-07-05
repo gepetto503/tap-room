@@ -18,28 +18,30 @@ import { Component } from '@angular/core';
         <div>
           <h3>Add keg:</h3>
           <label>Enter Burr Name:</label>
-          <input><br>
+          <input #newBeerName><br>
           <label>Enter Alcohol Content:</label>
-          <input [(ngModel)]="selectedKeg.description"><br>
-          <label>Enter Keg Price:</label>
-          <input [(ngModel)]="selectedKeg.description"><br>
-          <button>add a burr</button>
+          <input #newAlcoholContent><br>
+          <label>Enter Pint Price:</label>
+          <input #newPintPrice><br>
+          <button (click)="addKeg(newBeerName.value, newAlcoholContent.value, newPintPrice.value)">add a burr</button>
        </div>
      </div>
   `
 })
 
-
-
 export class AppComponent {
   currentFocus: string = 'Deschutes Brewery Tap Room';
   kegs: Keg[] = [
-    new Keg('Black Butte Porter', 1, 5.2, 56),
-    new Keg('Mirror Pond Pale Ale', 2, 6, 124),
-    new Keg('Inversion IPA', 2, 7, 10)
+    new Keg('Black Butte Porter', 1, 5.2),
+    new Keg('Mirror Pond Pale Ale', 2, 6),
+    new Keg('Inversion IPA', 2, 7)
     ];
   selectedKeg: Keg = this.kegs[0];
 
+  addKeg(description: string, price: number, alcContent: number) {
+    var newKeg = new Keg(description, price, alcContent);
+    this.kegs.push(newKeg);
+  }
 
   sellPint(clickedKeg: Keg) {
     clickedKeg.pintsLeft -= 1;
@@ -60,6 +62,6 @@ export class AppComponent {
 }
 
 export class Keg {
-  public done: boolean = false;
-  constructor(public description: string, public price: number, public alcContent: number, public pintsLeft: number) { }
+  public pintsLeft = 124;
+  constructor(public description: string, public price: number, public alcContent: number) { }
 }
