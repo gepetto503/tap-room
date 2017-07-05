@@ -6,14 +6,23 @@ import { Component } from '@angular/core';
       <div class="container">
         <h1>{{currentFocus}}</h1>
         <ul>
-          <li [class]="fullnessColor(currentKeg)" *ngFor="let currentKeg of kegs">{{currentKeg.description}}
+          <li *ngFor="let currentKeg of kegs">{{currentKeg.description}}
             <ul>
               <li>%{{currentKeg.alcContent}} alcohol content</li>
               <li>{{currentKeg.price}} dollar(s)</li>
-              <li>there are {{currentKeg.pintsLeft}} pints left</li>
+              <li [class]="fullnessColor(currentKeg)">there are {{currentKeg.pintsLeft}} pints left</li>
             </ul>
-            <button (click)="sellPint(currentKeg)">Sell the pint!</button></li>
+            <button (click)="sellPint(currentKeg)">Sell the pint!</button>
+            <button (click)="editBeer(currentKeg)">Edit!</button></li>
         </ul>
+        <hr>
+        <h3>Edit Beer</h3>
+        <label>Enter Beer Name:</label>
+        <input [(ngModel)]="selectedKeg.description"><br>
+        <label>Enter Beer Price:</label>
+        <input [(ngModel)]="selectedKeg.price"><br>
+        <label>Enter Alcohol Content:</label>
+        <input [(ngModel)]="selectedKeg.alcContent"><br>
         <hr>
         <div>
           <h3>Add keg:</h3>
@@ -41,6 +50,10 @@ export class AppComponent {
   addKeg(description: string, price: number, alcContent: number) {
     var newKeg = new Keg(description, price, alcContent);
     this.kegs.push(newKeg);
+  }
+
+  editBeer(currentKeg) {
+    this.selectedKeg = currentKeg;
   }
 
   sellPint(clickedKeg: Keg) {
