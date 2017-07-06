@@ -4,29 +4,30 @@ import { Keg } from './keg.model';
 @Component({
   selector: 'app-root',
   template: `
+      <div class="hero">
+        <h1>BEER</h1>
+      </div>
       <div class="container">
-        <h1>{{currentFocus}}</h1>
+        <h1 id="title">{{currentFocus}}</h1>
         <!--[childKegs]="kegs" sends kegs array from this file to @Input() childKegs-->
         <!--(clickSender="editBeer($event)" takes keg object from @Output() clickSender within beer-list.component.ts and passes it into editBeer method in the class description below.-->
         <keg-list [childKegs]="kegs" (kegToEdit)="editKeg($event)" (kegToSell)="sellPint($event)"></keg-list>
-        <hr>
-        <div>
-          <div>
-            <!--square brackets is the output in the child file, round brackets is the input-->
-            <add-keg (addKegOutput)="addKeg($event)"></add-keg>
-          </div>
+
+        <div class="flex-mom">
+          <!--square brackets is the output in the child file, round brackets is the input-->
+          <add-keg (addKegOutput)="addKeg($event)"></add-keg>
+          <edit-keg [editKegSelector]="selectedKeg"></edit-keg>
         </div>
-        <edit-keg [editKegSelector]="selectedKeg"></edit-keg>
      </div>
   `
 })
 
 export class AppComponent {
-  currentFocus: string = 'Deschutes Brewery Tap Room';
+  currentFocus: string = 'Klippkroog Scandinavian TapRoom';
   kegs: Keg[] = [
-    new Keg('Black Butte Porter', 1, 5.2),
-    new Keg('Mirror Pond Pale Ale', 2, 6),
-    new Keg('Inversion IPA', 2, 7)
+    new Keg('Forelskaet', 1, 5.2),
+    new Keg('Morfar, Farmor', 2, 6),
+    new Keg('Ogooglebar IPA', 2, 7)
     ];
 
   selectedKeg: Keg = this.kegs[0];

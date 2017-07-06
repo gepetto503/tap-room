@@ -10,11 +10,11 @@ var core_1 = require("@angular/core");
 var keg_model_1 = require("./keg.model");
 var AppComponent = (function () {
     function AppComponent() {
-        this.currentFocus = 'Deschutes Brewery Tap Room';
+        this.currentFocus = 'Klippkroog Scandinavian TapRoom';
         this.kegs = [
-            new keg_model_1.Keg('Black Butte Porter', 1, 5.2),
-            new keg_model_1.Keg('Mirror Pond Pale Ale', 2, 6),
-            new keg_model_1.Keg('Inversion IPA', 2, 7)
+            new keg_model_1.Keg('Forelskaet', 1, 5.2),
+            new keg_model_1.Keg('Morfar, Farmor', 2, 6),
+            new keg_model_1.Keg('Ogooglebar IPA', 2, 7)
         ];
         this.selectedKeg = this.kegs[0];
     }
@@ -45,7 +45,7 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'app-root',
-        template: "\n      <div class=\"container\">\n        <h1>{{currentFocus}}</h1>\n        <!--[childKegs]=\"kegs\" sends kegs array from this file to @Input() childKegs-->\n        <!--(clickSender=\"editBeer($event)\" takes keg object from @Output() clickSender within beer-list.component.ts and passes it into editBeer method in the class description below.-->\n        <keg-list [childKegs]=\"kegs\" (kegToEdit)=\"editKeg($event)\" (kegToSell)=\"sellPint($event)\"></keg-list>\n        <hr>\n        <div>\n          <div>\n            <!--square brackets is the output in the child file, round brackets is the input-->\n            <add-keg (addKegOutput)=\"addKeg($event)\"></add-keg>\n          </div>\n        </div>\n        <edit-keg [editKegSelector]=\"selectedKeg\"></edit-keg>\n     </div>\n  "
+        template: "\n      <div class=\"hero\">\n        <h1>BEER</h1>\n      </div>\n      <div class=\"container\">\n        <h1 id=\"title\">{{currentFocus}}</h1>\n        <!--[childKegs]=\"kegs\" sends kegs array from this file to @Input() childKegs-->\n        <!--(clickSender=\"editBeer($event)\" takes keg object from @Output() clickSender within beer-list.component.ts and passes it into editBeer method in the class description below.-->\n        <keg-list [childKegs]=\"kegs\" (kegToEdit)=\"editKeg($event)\" (kegToSell)=\"sellPint($event)\"></keg-list>\n\n        <div class=\"flex-mom\">\n          <!--square brackets is the output in the child file, round brackets is the input-->\n          <add-keg (addKegOutput)=\"addKeg($event)\"></add-keg>\n          <edit-keg [editKegSelector]=\"selectedKeg\"></edit-keg>\n        </div>\n     </div>\n  "
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;

@@ -11,7 +11,6 @@ import { Keg } from './keg.model';
   <input [(ngModel)]="editKegSelector.price"><br>
   <label>Enter Alcohol Content:</label>
   <input [(ngModel)]="editKegSelector.alcContent"><br>
-  <hr>
   `
 })
 

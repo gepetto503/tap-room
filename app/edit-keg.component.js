@@ -23,7 +23,7 @@ __decorate([
 EditKegComponent = __decorate([
     core_1.Component({
         selector: 'edit-keg',
-        template: "\n  <h3>Edit Beer</h3>\n  <label>Enter Beer Name:</label>\n  <input [(ngModel)]=\"editKegSelector.description\"><br>\n  <label>Enter Beer Price:</label>\n  <input [(ngModel)]=\"editKegSelector.price\"><br>\n  <label>Enter Alcohol Content:</label>\n  <input [(ngModel)]=\"editKegSelector.alcContent\"><br>\n  <hr>\n  "
+        template: "\n  <h3>Edit Beer</h3>\n  <label>Enter Beer Name:</label>\n  <input [(ngModel)]=\"editKegSelector.description\"><br>\n  <label>Enter Beer Price:</label>\n  <input [(ngModel)]=\"editKegSelector.price\"><br>\n  <label>Enter Alcohol Content:</label>\n  <input [(ngModel)]=\"editKegSelector.alcContent\"><br>\n  "
     })
 ], EditKegComponent);
 exports.EditKegComponent = EditKegComponent;

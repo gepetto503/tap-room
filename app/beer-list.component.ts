@@ -4,21 +4,27 @@ import { Keg } from './keg.model';
 @Component({
   selector: 'keg-list',
   template: `
-  <ul>
-    <li *ngFor="let currentKeg of childKegs">{{currentKeg.description}}
-      <ul>
-        <li>%{{currentKeg.alcContent}} alcohol content</li>
-        <li>{{currentKeg.price}} dollar(s)</li>
-        <!--commented out from third li:  [class]="fullnessColor(currentKeg)"-->
-        <li>there are {{currentKeg.pintsLeft}} pints left</li>
-      </ul>
+  <div class="beers">
+    <div class="beer" *ngFor="let currentKeg of childKegs">
+      <div class="name">
+        <h3>{{currentKeg.description}}</h3>
+      </div>
+      <div class="details">
+        <ul>
+          <li>%{{currentKeg.alcContent}} alcohol content</li>
+          <li>{{currentKeg.price}} dollar(s)</li>
+          <!--commented out from third li:  [class]="fullnessColor(currentKeg)"-->
+          <li>there are {{currentKeg.pintsLeft}} pints left</li>
+        </ul>
 
-      <button (click)="sellButtonHasBeenClicked(currentKeg)">Sell the pint!</button>
-
-
-      <!--when user clicks this button, it runs the method editButtonHasBeenClicked on the keg object that corresponds to iteration of the loop associated with that <li>-->
-      <button (click)="editButtonHasBeenClicked(currentKeg)">Edit!</button></li>
-  </ul>
+      </div>
+      <div class="buttons">
+        <button (click)="sellButtonHasBeenClicked(currentKeg)">Sell the pint!</button>
+        <!--when user clicks this button, it runs the method editButtonHasBeenClicked on the keg object that corresponds to iteration of the loop associated with that <li>-->
+        <button (click)="editButtonHasBeenClicked(currentKeg)">Edit!</button>
+      </div>
+    </div>
+  </div>
   `
 })
 
