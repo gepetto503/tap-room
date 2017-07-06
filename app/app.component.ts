@@ -8,7 +8,7 @@ import { Keg } from './keg.model';
         <h1>{{currentFocus}}</h1>
         <!--[childKegs]="kegs" sends kegs array from this file to @Input() childKegs-->
         <!--(clickSender="editBeer($event)" takes keg object from @Output() clickSender within beer-list.component.ts and passes it into editBeer method in the class description below.-->
-        <keg-list [childKegs]="kegs" (clickSender)="editKeg($event)"></keg-list>
+        <keg-list [childKegs]="kegs" (kegToEdit)="editKeg($event)" (kegToSell)="sellPint($event)"></keg-list>
         <hr>
         <div>
           <div>

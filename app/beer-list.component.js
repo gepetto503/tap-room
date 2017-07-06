@@ -12,11 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var BeerListComponent = (function () {
     function BeerListComponent() {
-        this.clickSender = new core_1.EventEmitter(); //this pushes the current keg object up to the parent
+        this.kegToEdit = new core_1.EventEmitter(); //this pushes the current keg object up to the parent
+        this.kegToSell = new core_1.EventEmitter();
     }
     //tasktoEdit paramater is fed a Keg object argument based on the iteration of the ngFor loop in this component's template
     BeerListComponent.prototype.editButtonHasBeenClicked = function (kegToEdit) {
-        this.clickSender.emit(kegToEdit);
+        this.kegToEdit.emit(kegToEdit);
+    };
+    BeerListComponent.prototype.sellButtonHasBeenClicked = function (kegToSell) {
+        this.kegToSell.emit(kegToSell);
     };
     return BeerListComponent;
 }());
@@ -27,11 +31,15 @@ __decorate([
 __decorate([
     core_1.Output(),
     __metadata("design:type", Object)
-], BeerListComponent.prototype, "clickSender", void 0);
+], BeerListComponent.prototype, "kegToEdit", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", Object)
+], BeerListComponent.prototype, "kegToSell", void 0);
 BeerListComponent = __decorate([
     core_1.Component({
         selector: 'keg-list',
-        template: "\n  <ul>\n    <li *ngFor=\"let currentKeg of childKegs\">{{currentKeg.description}}\n      <ul>\n        <li>%{{currentKeg.alcContent}} alcohol content</li>\n        <li>{{currentKeg.price}} dollar(s)</li>\n        <!--commented out from third li:  [class]=\"fullnessColor(currentKeg)\"-->\n        <li>there are {{currentKeg.pintsLeft}} pints left</li>\n      </ul>\n\n      <button (click)=\"sellPint(currentKeg)\">Sell the pint!</button>\n\n\n      <!--when user clicks this button, it runs the method editButtonHasBeenClicked on the keg object that corresponds to iteration of the loop associated with that <li>-->\n      <button (click)=\"editButtonHasBeenClicked(currentKeg)\">Edit!</button></li>\n  </ul>\n  "
+        template: "\n  <ul>\n    <li *ngFor=\"let currentKeg of childKegs\">{{currentKeg.description}}\n      <ul>\n        <li>%{{currentKeg.alcContent}} alcohol content</li>\n        <li>{{currentKeg.price}} dollar(s)</li>\n        <!--commented out from third li:  [class]=\"fullnessColor(currentKeg)\"-->\n        <li>there are {{currentKeg.pintsLeft}} pints left</li>\n      </ul>\n\n      <button (click)=\"sellButtonHasBeenClicked(currentKeg)\">Sell the pint!</button>\n\n\n      <!--when user clicks this button, it runs the method editButtonHasBeenClicked on the keg object that corresponds to iteration of the loop associated with that <li>-->\n      <button (click)=\"editButtonHasBeenClicked(currentKeg)\">Edit!</button></li>\n  </ul>\n  "
     })
 ], BeerListComponent);
 exports.BeerListComponent = BeerListComponent;

@@ -45,7 +45,7 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'app-root',
-        template: "\n      <div class=\"container\">\n        <h1>{{currentFocus}}</h1>\n        <!--[childKegs]=\"kegs\" sends kegs array from this file to @Input() childKegs-->\n        <!--(clickSender=\"editBeer($event)\" takes keg object from @Output() clickSender within beer-list.component.ts and passes it into editBeer method in the class description below.-->\n        <keg-list [childKegs]=\"kegs\" (clickSender)=\"editKeg($event)\"></keg-list>\n        <hr>\n        <div>\n          <div>\n            <!--square brackets is the output in the child file, round brackets is the input-->\n            <add-keg (addKegOutput)=\"addKeg($event)\"></add-keg>\n          </div>\n        </div>\n        <edit-keg [editKegSelector]=\"selectedKeg\"></edit-keg>\n     </div>\n  "
+        template: "\n      <div class=\"container\">\n        <h1>{{currentFocus}}</h1>\n        <!--[childKegs]=\"kegs\" sends kegs array from this file to @Input() childKegs-->\n        <!--(clickSender=\"editBeer($event)\" takes keg object from @Output() clickSender within beer-list.component.ts and passes it into editBeer method in the class description below.-->\n        <keg-list [childKegs]=\"kegs\" (kegToEdit)=\"editKeg($event)\" (kegToSell)=\"sellPint($event)\"></keg-list>\n        <hr>\n        <div>\n          <div>\n            <!--square brackets is the output in the child file, round brackets is the input-->\n            <add-keg (addKegOutput)=\"addKeg($event)\"></add-keg>\n          </div>\n        </div>\n        <edit-keg [editKegSelector]=\"selectedKeg\"></edit-keg>\n     </div>\n  "
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
