@@ -1,39 +1,22 @@
 import { Component } from '@angular/core';
+import { Keg } from './keg.model';
 
 @Component({
   selector: 'app-root',
   template: `
       <div class="container">
         <h1>{{currentFocus}}</h1>
-        <ul>
-          <li *ngFor="let currentKeg of kegs">{{currentKeg.description}}
-            <ul>
-              <li>%{{currentKeg.alcContent}} alcohol content</li>
-              <li>{{currentKeg.price}} dollar(s)</li>
-              <li [class]="fullnessColor(currentKeg)">there are {{currentKeg.pintsLeft}} pints left</li>
-            </ul>
-            <button (click)="sellPint(currentKeg)">Sell the pint!</button>
-            <button (click)="editBeer(currentKeg)">Edit!</button></li>
-        </ul>
+        <!--[childKegs]="kegs" sends kegs array from this file to @Input() childKegs-->
+        <!--(clickSender="editBeer($event)" takes keg object from @Output() clickSender within beer-list.component.ts and passes it into editBeer method in the class description below.-->
+        <keg-list [childKegs]="kegs" (clickSender)="editKeg($event)"></keg-list>
         <hr>
         <div>
-          <h3>Add keg:</h3>
-          <label>Enter Burr Name:</label>
-          <input #newBeerName><br>
-          <label>Enter Alcohol Content:</label>
-          <input #newAlcoholContent><br>
-          <label>Enter Pint Price:</label>
-          <input #newPintPrice><br>
-          <button (click)="addKeg(newBeerName.value, newAlcoholContent.value, newPintPrice.value)">add a burr</button>
-       </div>
-       <h3>Edit Beer</h3>
-       <label>Enter Beer Name:</label>
-       <input [(ngModel)]="selectedKeg.description"><br>
-       <label>Enter Beer Price:</label>
-       <input [(ngModel)]="selectedKeg.price"><br>
-       <label>Enter Alcohol Content:</label>
-       <input [(ngModel)]="selectedKeg.alcContent"><br>
-       <hr>
+          <div>
+            <!--square brackets is the output in the child file, round brackets is the input-->
+            <add-keg (addKegOutput)="addKeg($event)"></add-keg>
+          </div>
+        </div>
+        <edit-keg [editKegSelector]="selectedKeg"></edit-keg>
      </div>
   `
 })
@@ -45,14 +28,16 @@ export class AppComponent {
     new Keg('Mirror Pond Pale Ale', 2, 6),
     new Keg('Inversion IPA', 2, 7)
     ];
+
   selectedKeg: Keg = this.kegs[0];
 
-  addKeg(description: string, price: number, alcContent: number) {
-    var newKeg = new Keg(description, price, alcContent);
-    this.kegs.push(newKeg);
+  //we need parameters from the add keg component to feed into this method
+  addKeg(newKegFromChild: Keg) {
+    this.kegs.push(newKegFromChild);
   }
 
-  editBeer(currentKeg) {
+  editKeg(currentKeg) {
+    // makes whichever keg the user clicked the button on become stored in the selected keg variable.
     this.selectedKeg = currentKeg;
   }
 
@@ -72,9 +57,4 @@ export class AppComponent {
 
   }
 
-}
-
-export class Keg {
-  public pintsLeft = 124;
-  constructor(public description: string, public price: number, public alcContent: number) { }
 }

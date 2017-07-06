@@ -7,21 +7,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var keg_model_1 = require("./keg.model");
 var AppComponent = (function () {
     function AppComponent() {
         this.currentFocus = 'Deschutes Brewery Tap Room';
         this.kegs = [
-            new Keg('Black Butte Porter', 1, 5.2),
-            new Keg('Mirror Pond Pale Ale', 2, 6),
-            new Keg('Inversion IPA', 2, 7)
+            new keg_model_1.Keg('Black Butte Porter', 1, 5.2),
+            new keg_model_1.Keg('Mirror Pond Pale Ale', 2, 6),
+            new keg_model_1.Keg('Inversion IPA', 2, 7)
         ];
         this.selectedKeg = this.kegs[0];
     }
-    AppComponent.prototype.addKeg = function (description, price, alcContent) {
-        var newKeg = new Keg(description, price, alcContent);
-        this.kegs.push(newKeg);
+    //we need parameters from the add keg component to feed into this method
+    AppComponent.prototype.addKeg = function (newKegFromChild) {
+        this.kegs.push(newKegFromChild);
     };
-    AppComponent.prototype.editBeer = function (currentKeg) {
+    AppComponent.prototype.editKeg = function (currentKeg) {
+        // makes whichever keg the user clicked the button on become stored in the selected keg variable.
         this.selectedKeg = currentKeg;
     };
     AppComponent.prototype.sellPint = function (clickedKeg) {
@@ -43,18 +45,8 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'app-root',
-        template: "\n      <div class=\"container\">\n        <h1>{{currentFocus}}</h1>\n        <ul>\n          <li *ngFor=\"let currentKeg of kegs\">{{currentKeg.description}}\n            <ul>\n              <li>%{{currentKeg.alcContent}} alcohol content</li>\n              <li>{{currentKeg.price}} dollar(s)</li>\n              <li [class]=\"fullnessColor(currentKeg)\">there are {{currentKeg.pintsLeft}} pints left</li>\n            </ul>\n            <button (click)=\"sellPint(currentKeg)\">Sell the pint!</button>\n            <button (click)=\"editBeer(currentKeg)\">Edit!</button></li>\n        </ul>\n        <hr>\n        <div>\n          <h3>Add keg:</h3>\n          <label>Enter Burr Name:</label>\n          <input #newBeerName><br>\n          <label>Enter Alcohol Content:</label>\n          <input #newAlcoholContent><br>\n          <label>Enter Pint Price:</label>\n          <input #newPintPrice><br>\n          <button (click)=\"addKeg(newBeerName.value, newAlcoholContent.value, newPintPrice.value)\">add a burr</button>\n       </div>\n       <h3>Edit Beer</h3>\n       <label>Enter Beer Name:</label>\n       <input [(ngModel)]=\"selectedKeg.description\"><br>\n       <label>Enter Beer Price:</label>\n       <input [(ngModel)]=\"selectedKeg.price\"><br>\n       <label>Enter Alcohol Content:</label>\n       <input [(ngModel)]=\"selectedKeg.alcContent\"><br>\n       <hr>\n     </div>\n  "
+        template: "\n      <div class=\"container\">\n        <h1>{{currentFocus}}</h1>\n        <!--[childKegs]=\"kegs\" sends kegs array from this file to @Input() childKegs-->\n        <!--(clickSender=\"editBeer($event)\" takes keg object from @Output() clickSender within beer-list.component.ts and passes it into editBeer method in the class description below.-->\n        <keg-list [childKegs]=\"kegs\" (clickSender)=\"editKeg($event)\"></keg-list>\n        <hr>\n        <div>\n          <div>\n            <!--square brackets is the output in the child file, round brackets is the input-->\n            <add-keg (addKegOutput)=\"addKeg($event)\"></add-keg>\n          </div>\n        </div>\n        <edit-keg [editKegSelector]=\"selectedKeg\"></edit-keg>\n     </div>\n  "
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
-var Keg = (function () {
-    function Keg(description, price, alcContent) {
-        this.description = description;
-        this.price = price;
-        this.alcContent = alcContent;
-        this.pintsLeft = 124;
-    }
-    return Keg;
-}());
-exports.Keg = Keg;
 //# sourceMappingURL=app.component.js.map
